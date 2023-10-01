@@ -1,0 +1,63 @@
+---
+title: "week1_exercise2_partb"
+author: "Chen Chen"
+format: html
+embed-resources: true
+editor: visual
+---
+
+## Week 1 Exercise Part B
+
+### 1. Generating sampled values
+
+We sample 100 values from a log-normal distribution (mu = 5, sigma = 0.5) using $rlnorm$ function. We also set seed to make it reproducible.
+
+```{r}
+set.seed(18)
+samplevalue <- rlnorm(100, meanlog = 5, sdlog = 0.5)
+```
+
+### 2. Plotting
+
+We create plots using $ggplot2$ package.
+
+### 2.1 Histogram of the sampled data on linear scales
+
+We first upload $ggplot2$ package, and create histogram on linear scales.
+
+```{r}
+library('ggplot2')
+histolinear <- ggplot(data.frame(samplevalue), aes(x = samplevalue)) +
+  geom_histogram(bins = 30, color = 'black', fill = 'lightblue') +
+  labs(title = 'Histogram of the sampled data', x = 'Sample value', y = 'Count')
+
+histolinear
+```
+
+### 2.2 Histogram of the sampled data on log scales
+
+We create histogram on transformed sampled data (log scale).
+
+```{r}
+histolog <- ggplot(data.frame(samplevalue), aes(x = log(samplevalue))) +
+  geom_histogram(bins = 30, color = 'black', fill = 'lightblue') +
+  labs(title = 'Histogram of the sampled data (log scale)', x = 'Sample value (log scale)', y = 'Count')
+
+histolog
+```
+
+### 2.3 Violin plot
+
+We create a violin plot.
+
+```{r}
+violin<- ggplot(data.frame(samplevalue), aes(x = '', y = samplevalue)) +
+  geom_violin() +
+  labs(title = 'violin plot of the sampled data', x = 'Sample', y = 'Sample value')
+
+violin
+```
+
+### 3. Reporting the mean and standard deviation of the sampled values
+
+The mean of our sampled values is `r mean(samplevalue)` and the standard deviation of our sampled values is `r sd(samplevalue)` .
